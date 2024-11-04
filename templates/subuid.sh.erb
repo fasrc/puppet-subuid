@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#Get users in groups
+cluster_users=$(getent group cluster_users | cut -d ':' -f 4 | sed 's/,/ /g')
+cluster_users_2=$(getent group cluster_users_2 | cut -d ':' -f 4 | sed 's/,/ /g')
+fasse_users=$(getent group fasse_users | cut -d ':' -f 4 | sed 's/,/ /g')
+
+all_users=$(echo ${cluster_users} ${cluster_users_2} ${fasse_users})
+
+#Set initial variables
+subuidstart=<%= @subuidstart %>
+subuidrange=<%= @subuidrange %>
+subuidfile=<%= @data_store %>/subuid
+
+touch $subuidfile
+
+for user in $all_users
+do
+  userid=$(id ${user} | cut -d '=' -f 2 | cut -d '(' -f 1)
+  #Check if uid is already in the subuid file
+  present=$(grep "^${userid}:" ${subuidfile})
+  if [ -z "${present}" ];
+  then
+    #Get the last subuid starting id
+    last=$(tail -n 1 ${subuidfile} | cut -d ':' -f 2)
+    if [ -z "$last" ];
+    then
+      s=$subuidstart
+    else
+      let "s = $last + $subuidrange + 1"
+    fi
+    #Write to file
+    echo "${userid}:${s}:${subuidrange}" >> $subuidfile
+  fi
+done
