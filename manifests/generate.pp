@@ -1,6 +1,6 @@
 # subuid::generate generates the subuid mapping
 class subuid::generate (
-  Boolean $enable      = false
+  Boolean $enable      = false,
   String  $data_store  = '/odyssey/subuid',
   Integer $subuidstart = 100000000,
   Integer $subuidrange = 66536,
