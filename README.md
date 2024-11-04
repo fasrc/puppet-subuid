@@ -1,2 +1,2 @@
 # puppet-subuid
-Handles populated and propagating /etc/subuid and /etc/subgid
+Handles populating and propagating /etc/subuid and /etc/subgid
