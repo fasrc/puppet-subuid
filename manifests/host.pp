@@ -7,7 +7,7 @@ class subuid::host (
 ){
   cron { 'subuid':
     ensure  => $ensure,
-    command => 'cp -f ${data_store}/subuid /etc/subuid; cp -f ${data_store}/subuid /etc/subgid',
+    command => "cp -f ${data_store}/subuid /etc/subuid; cp -f ${data_store}/subuid /etc/subgid",
     user    => 'root',
     hour    => $cronhour,
     minute  => $cronmin,
