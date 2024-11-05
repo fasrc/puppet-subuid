@@ -16,7 +16,7 @@ touch $subuidfile
 
 for user in $all_users
 do
-  userid=$(id ${user} | cut -d '=' -f 2 | cut -d '(' -f 1)
+  userid=$(id -u ${user})
   #Check if uid is already in the subuid file
   present=$(grep "^${userid}:" ${subuidfile})
   if [ -z "${present}" ];
@@ -27,7 +27,7 @@ do
     then
       s=$subuidstart
     else
-      let "s = $last + $subuidrange + 1"
+      let "s = $last + $subuidrange"
     fi
     #Write to file
     echo "${userid}:${s}:${subuidrange}" >> $subuidfile
