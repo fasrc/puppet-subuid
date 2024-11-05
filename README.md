@@ -1,2 +1,2 @@
 # puppet-subuid
-Handles populating and propagating /etc/subuid and /etc/subgid
+Handles populating and propagating `/etc/subuid` and `/etc/subgid`. The `subuid.sh` script populates the subuid map for specified groups based on a starting uid and range. CAUTION: This range should not overlap with existing uids else you will end up with collisions. The subuid map is saved to a specified location, in this case it is assumed to be network accessible. The host profile then copies that subuid map to `/etc/subuid` and `/etc/subgid`. This allows for all hosts to have the same subuid map.
