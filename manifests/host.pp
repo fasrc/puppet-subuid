@@ -1,6 +1,6 @@
 # subuid::host sets up a host to use the subuid file
 class subuid::host (
-  String $ensure     = 'absent',
+  String $ensure     = 'present',
   String $data_store = '/odyssey/subuid',
   Integer $cronhour  = 2,
   Integer $cronmin   = 5,
